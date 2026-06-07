@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovTrack - Institutional File Management System</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background: #f4f6f9; color: #333; padding: 20px; }
+        header { background: #1a365d; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        input, select, button { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { background: #2b6cb0; color: white; font-weight: bold; cursor: pointer; border: none; }
+        button:hover { background: #2c5282; }
+        .search-box { display: flex; gap: 10px; }
+        .search-box input { flex: 9; }
+        .search-box button { flex: 1; min-width: 50px; background: #2d3748; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left; }
+        th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        th { background: #edf2f7; }
+        .hidden { display: none !important; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .in { background: #c6f6d5; color: #22543d; }
+        .out { background: #feebc8; color: #744210; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Login Panel -->
+    <div id="login-panel" class="card" style="max-width: 400px; margin: 100px auto;">
+        <h2 style="margin-bottom: 15px; text-align: center; color: #1a365d;">Secure Gatekeeper Sign-In</h2>
+        <input type="text" id="username" placeholder="Username (admin)">
+        <input type="password" id="password" placeholder="Password (GovAdmin2026!)">
+        <button onclick="login()">Authenticate</button>
+    </div>
+
+    <!-- Main Application Panel -->
+    <div id="main-panel" class="hidden">
+        <header>
+            <h1>GovTrack™ Registry System</h1>
+            <div>User: <span id="user-display" style="font-weight: bold; margin-right: 15px;"></span> <button onclick="logout()" style="width: auto; background: #e53e3e; padding: 5px 15px;">Exit</button></div>
+        </header>
+
+        <div class="card">
+            <h3>🔍 System File Repository Search</h3>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Scan references, descriptions, names...">
+                <button onclick="searchFiles()">🔍 Search</button>
+            </div>
+            <table id="files-table">
+                <thead>
+                    <tr>
+                        <th>Ref Number</th>
+                        <th>Document Title</th>
+                        <th>Current Dept Structure</th>
+                        <th>Assigned Handler</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>🆕 File Creation Entry</h3>
+                <input type="text" id="new-ref" placeholder="File Reference Code (e.g., MOF/2026/001)">
+                <input type="text" id="new-title" placeholder="Document Title / Subject Line">
+                <select id="new-dept"></select>
+                <input type="text" id="new-user" placeholder="Initial Field Handler Name">
+                <button onclick="createFile()">Archive File to System</button>
+            </div>
+
+            <div class="card">
+                <h3>🔄 Departmental Transfer Authorization</h3>
+                <input type="hidden" id="move-file-id">
+                <p id="move-file-ref" style="font-weight: bold; color: #2b6cb0; margin-bottom: 8px;">Select a file from the repository search list above</p>
+                <select id="move-dept"></select>
+                <input type="text" id="move-user" placeholder="Target Desk Officer Name">
+                <button onclick="moveFile()">Authorize Inter-Dept Movement</button>
+            </div>
+        </div>
+
+        <!-- System Audit Trail -->
+        <div class="card">
+            <h3>📜 Verification Audit Trail Log (<span id="history-title">None Selected</span>)</h3>
+            <table id="history-table">
+                <thead>
+                    <tr>
+                        <th>Movement Action</th>
+                        <th>Institutional Department</th>
+                        <th>System Timestamp</th>
+                        <th>Registry Officer Logged</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "gov-file-tracker",
+  "version": "1.0.0",
+  "description": "Government File Tracking System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "sqlite3": "^6.0.1"
+  }
+}
